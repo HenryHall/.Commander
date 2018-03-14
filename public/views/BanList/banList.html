@@ -1,0 +1,13 @@
+
+<h2>Ban List</h2>
+
+<card-search
+      placeholder="Add a card"
+      list="banList.allCards"
+      callback="banList.addCard"
+      >
+</card-search>
+
+<ul class="container">
+  <li ng-repeat="bannedCard in banList.bannedCards">{{bannedCard}}</li>
+</ul>

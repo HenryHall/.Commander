@@ -1,0 +1,62 @@
+
+<div class="container card-search">
+
+  <div class="row queryBar" ng-if="$ctrl.hasList">
+    <div class="input-group">
+        <span class="input-group-btn">
+          <button
+                class="btn btn-info queryOptionsBtn"
+                type="button"
+                ng-click="$ctrl.optionsOpen = !$ctrl.optionsOpen"
+                >
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+          </button>
+        <!-- </span> -->
+
+      <!-- <span class="input-group-btn"> -->
+        <button
+              class="btn btn-default btn-primary outputAction"
+              type="button"
+              ng-click="$ctrl.outputAction()"
+              >
+          <small><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></small>
+        </button>
+      </span>
+
+      <input
+            type="text"
+            class="form-control queryIn"
+            placeholder="{{$ctrl.placeholder}}"
+            ng-model="$ctrl.queryIn"
+            ng-keydown="$ctrl.handleKeypress($event)"
+            ng-change="$ctrl.getSuggestions()"
+            ng-paste="$ctrl.getSuggestions()"
+            >
+      </input>
+    </div>
+  </div>
+
+
+  <div id="searchResults">
+    <div  class="searchResult" ng-class="{selectedSearch: $index == selectedSearch}" ng-repeat="result in $ctrl.suggestionList" ng-click="$ctrl.selectSuggestion($index)">{{result}}
+    </div>
+  </div>
+
+  <div class="row">
+    <div ng-if="$ctrl.optionsOpen" class="optionsArea">
+      <div class="optionGrouping col-sm-6">
+        <input type="checkbox" class="cardSearchOption" ng-model="$ctrl.clrOnSubmit">
+        <label>Clear on submit</label>
+      </div>
+      <div class="optionGrouping col-sm-6">
+        <input type="checkbox" class="cardSearchOption" ng-model="$ctrl.anotherOption">
+        <label>Another Option</label>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="!$ctrl.hasList" class="alert-danger">
+    <p>Provide this component with data.</p>
+  </div>
+
+</div>

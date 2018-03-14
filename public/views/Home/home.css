@@ -1,0 +1,52 @@
+
+
+.homeView {
+  background: white url('../../assets/homeBackground.jpg') !important;
+  background-size: cover !important;
+  height: 100% !important;
+  padding-top: 20px;
+}
+
+.homeView .card-search {
+  position: absolute;
+  left: calc(65% / 2);
+  bottom: 10%;
+  width: 35%;
+}
+
+.homeView .card-search .queryBar {
+  transform: scale(1.25);
+}
+
+.homeView .card-search .queryIn:not(:focus) {
+  background-color: rgba(255, 255, 255, .5)
+}
+
+.homeView .card-search .queryIn::placeholder {
+}
+
+/* .homeView .card-search .queryIn:not(:focus) {
+  color: white;
+  background-color: rgba(255, 255, 255, .5)
+} */
+
+.homeView .card-search .optionsArea {
+  position: absolute;
+  left: -10%;
+  margin-top: 5px;
+}
+
+.homeView .card-search .optionsArea input, .homeView .card-search .optionsArea label {
+  position: relative;
+  top: -2px;
+}
+
+.homeView .card-search .optionGrouping {
+  padding: 0px;
+  line-height: 1;
+  background-color: rgba(233, 233, 233, .75);
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  max-height: 16px !important;
+  width: calc(35% / 2);
+}

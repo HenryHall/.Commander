@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="commanderDash">
+  <head>
+    <meta charset="utf-8">
+    <title>Commander Dash</title>
+
+    <!-- Vendor Style -->
+    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+
+    <!-- View Style -->
+    <link rel="stylesheet" href="./views/index.css">
+    <link rel="stylesheet" href="/views/BanList/banList.css">
+    <link rel="stylesheet" href="/views/Home/home.css">
+
+    <!-- Partials Style -->
+    <link rel="stylesheet" href="./views/Partials/CardSearch/CardSearch.css">
+    <link rel="stylesheet" href="./views/Partials/NavBar/navBar.css">
+
+  </head>
+  <body ng-controller="pageController">
+
+    <nav-bar></nav-bar>
+
+
+    <main ng-view></main>
+
+
+    <script src="../vendor/jquery.min.js" charset="utf-8"></script>
+    <script src="../vendor/angular.min.js" charset="utf-8"></script>
+    <script src="../vendor/angular-route.min.js" charset="utf-8"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="./views/index.js" charset="utf-8"></script>
+    <script src="./views/Home/home.js" charset="utf-8"></script>
+    <script src="./views/BanList/banList.js" charset="utf-8"></script>
+    <script src="./views/Partials/NavBar/navBar.js" charset="utf-8"></script>
+    <script src="./views/Partials/CardSearch/CardSearch.js" charset="utf-8"></script>
+  </body>
+</html>

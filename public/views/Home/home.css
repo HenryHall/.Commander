@@ -7,15 +7,23 @@
   padding-top: 20px;
 }
 
+.homeView .cardView {
+  height: 350px;
+  width: 225px;
+  margin-top: 50px;
+  margin-left: calc(50vw - 112px);
+  border-radius: 10px;
+}
+
 .homeView .card-search {
-  position: absolute;
-  left: calc(65% / 2);
-  bottom: 10%;
+  position: relative;
+  margin-left: calc(65% / 2);
+  /* bottom: 10%; */
   width: 35%;
+  transform: scale(1.25);
 }
 
 .homeView .card-search .queryBar {
-  transform: scale(1.25);
 }
 
 .homeView .card-search .queryIn:not(:focus) {

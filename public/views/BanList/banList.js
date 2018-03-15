@@ -1,11 +1,14 @@
 
 
-angular.module('commanderDash').controller('banListController', ['$scope', function($scope){
+angular.module('commanderDash').controller('banListController', ['$scope', 'DataService', function($scope, DataService){
 
   var $ctrl = this;
 
   //Get data from service, dummy
-  $ctrl.allCards = ['Black Lotus', 'Plains', 'Island', 'Swamp', 'Mountain', 'Forest', 'Wastes'];
+  // $ctrl.allCards = ['Black Lotus', 'Plains', 'Island', 'Swamp', 'Mountain', 'Forest', 'Wastes'];
+  setTimeout(function () {
+    $ctrl.allCards = Object.keys(DataService.getCardList());
+  }, 1000);
 
   //Get data from service, dummy
   $ctrl.bannedCards = [

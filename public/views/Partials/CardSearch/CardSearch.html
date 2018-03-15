@@ -1,7 +1,8 @@
 
 <div class="container card-search">
 
-  <div class="row queryBar" ng-if="$ctrl.hasList">
+   <!-- ng-if="$ctrl.hasList" -->
+  <div class="row queryBar">
     <div class="input-group">
         <span class="input-group-btn">
           <button
@@ -43,20 +44,20 @@
   </div>
 
   <div class="row">
-    <div ng-if="$ctrl.optionsOpen" class="optionsArea">
-      <div class="optionGrouping col-sm-6">
+    <ul ng-if="$ctrl.optionsOpen" class="optionsArea list-group">
+      <li class="optionGrouping list-group-item col-sm-6" ng-click="$ctrl.clrOnSubmit = !$ctrl.clrOnSubmit">
         <input type="checkbox" class="cardSearchOption" ng-model="$ctrl.clrOnSubmit">
         <label>Clear on submit</label>
-      </div>
-      <div class="optionGrouping col-sm-6">
+      </li>
+      <li class="optionGrouping list-group-item col-sm-6" ng-click="$ctrl.anotherOption = !$ctrl.anotherOption">
         <input type="checkbox" class="cardSearchOption" ng-model="$ctrl.anotherOption">
         <label>Another Option</label>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 
-  <div ng-if="!$ctrl.hasList" class="alert-danger">
+  <!-- <div ng-if="!$ctrl.hasList" class="alert-danger">
     <p>Provide this component with data.</p>
-  </div>
+  </div> -->
 
 </div>

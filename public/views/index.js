@@ -34,16 +34,36 @@ commanderDash.config(function($routeProvider){
 });
 
 
+commanderDash.service('DataService', ['$http', '$timeout', function($http, $timeout){
 
-commanderDash.controller('pageController', ['$scope', function($scope){
+  $svc = this;
+  $svc.allCards = undefined;
+
+  console.log("Start http");
+  $http.get('https://raw.githubusercontent.com/HenryHall/.Commander/master/AllCards')
+  .then( (cardList) => {
+    console.log("Got http data");
+    $svc.allCards = cardList.data;
+  });//Should Error handle here, fix
 
 
+  $svc.getCardList = function(){
+    if($svc.allCards){
+      return $svc.allCards;
+    } else {
+      // setTimeout(function () {
+      //   console.log("Trying again...");
+        return $svc.getCardList();
+      // }, 1000);
+    }
+  };
 
 }]);
 
 
-// commanderDash.service('dataService', function(){
-//
-//   // $http({});
-//
-// });
+
+commanderDash.controller('pageController', ['$scope', 'DataService', function($scope, DataService){
+
+  var $ctrl = this;
+
+}]);

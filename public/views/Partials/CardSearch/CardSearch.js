@@ -4,11 +4,12 @@ function CardSearchController($scope, $element, $attrs){
   var $ctrl = this;
 
   $ctrl.$onInit = function(){
-    console.log("Hello from CardSearchController");
+    // console.log("Hello from CardSearchController");
     $ctrl.suggestionList = [];  //Has a watch attached
     $ctrl.selectedSearch = 0;
     $ctrl.maxSuggestions = 10;
-    $ctrl.hasList = $ctrl.list ? true : false;
+    $ctrl.hasList = $ctrl.list ? true : false;  //Has a watch attached
+
     $ctrl.clrOnSubmit = false;
 
     $ctrl.optionsOpen = false;   //Has a watch attached

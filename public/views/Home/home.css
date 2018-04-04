@@ -1,26 +1,54 @@
 
 
 .homeView {
-  background: white url('../../assets/homeBackground.jpg') !important;
-  background-size: cover !important;
   height: 100% !important;
+}
+
+.homeView .background {
+  position: absolute;
   padding-top: 20px;
+  height: 100%;
+  width: 100%;
+  z-index: -10;
+
+  /* background: white url('../../assets/homeBackground.jpg') !important; */
+  background: white url('../../assets/homeBackground2.jpg') !important;
+
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+
+  background-size: cover !important;
+}
+
+.homeView .main {
+  width: 50%;
+  float: left;
+  margin-top: 25px;
 }
 
 .homeView .cardView {
-  height: 350px;
-  width: 225px;
-  margin-top: 50px;
-  margin-left: calc(50vw - 112px);
+  height: 420px;
+  width: 300px;
+  /* margin-top: 50px; */
+  /* margin-left: calc(50vw - 112px); */
   border-radius: 10px;
 }
 
 .homeView .card-search {
   position: relative;
-  margin-left: calc(65% / 2);
+  /* margin-left: calc(65% / 2); */
   /* bottom: 10%; */
-  width: 35%;
-  transform: scale(1.25);
+  /* width: 35%; */
+  /* transform: scale(1.25); */
+}
+
+.homeView .card-search:focus {
+  outline-width: 1px !important;
+  outline-color: rgb(52, 247, 195) !important;
 }
 
 .homeView .card-search .queryBar {

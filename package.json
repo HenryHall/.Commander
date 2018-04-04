@@ -1,7 +1,7 @@
 {
   "name": "commanderdash",
   "version": "1.0.0",
-  "description": "",
+  "description": "It's alive: [https://commander-dash.herokuapp.com](https://commander-dash.herokuapp.com)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,10 +10,27 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "angular-auth0": "^3.0.0",
     "angular-route": "^1.5.8",
+    "auth0-js": "^9.3.3",
     "body-parser": "^1.18.2",
+    "connect-ensure-login": "^0.1.1",
+    "dotenv": "^5.0.1",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "nodemon": "^1.17.1",
-    "path": "^0.12.7"
-  }
+    "passport": "^0.4.0",
+    "passport-auth0": "^0.6.1",
+    "path": "^0.12.7",
+    "pg": "^7.4.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenryHall/.Commander.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HenryHall/.Commander/issues"
+  },
+  "homepage": "https://github.com/HenryHall/.Commander#readme"
 }

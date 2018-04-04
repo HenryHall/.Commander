@@ -1,7 +1,74 @@
 
-<h2>Ban List</h2>
+<div class="banListView">
 
-<card-search
+  <div class="main container form-control">
+
+    <h2>Ban List</h2>
+
+    <div id="listViewControls" class="d-flex justify-content-start">
+
+      <div class="viewControl">
+        <label>
+          <input type="radio" name="viewRadioSelect" ng-model="listView.view" value="myBanList">
+          My ban lists
+        </label>
+      </div>
+
+      <div class="viewControl">
+        <label>
+          <input type="radio" name="viewRadioSelect" ng-model="listView.view" value="searchLists">
+          Search ban lists
+        </label>
+      </div>
+
+      <div class="viewControl">
+        <button type="button" class="btn btn-sm btn-primary" ng-click="listView.view = 'newList'">New Ban List</button>
+      </div>
+
+    </div>
+
+
+    <div class="selectedView">
+
+      <div ng-if="!shownBLists.length" class="alert alert-secondary" role="alert">
+        No lists to display.
+      </div>
+
+      <table class="table table-bordered table-hover" ng-if="shownBLists.length">
+        <thead>
+          <tr class="d-flex">
+            <th class="col-sm-2">Name</th>
+            <th class="col-sm-2">Maintained By</th>
+            <th class="col-sm-2">Group Count</th>
+            <th class="col-sm-2">Creation Date</th>
+            <th class="col-sm-2">Public</th>
+            <th class="col-sm-2">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="d-flex" ng-repeat="bList in shownBLists" ng-click="showList(bList.banlistID)">
+            <td class="col-sm-2">{{bList.banlistName}}</td>
+            <!-- This should be member display name  **FIX** -->
+            <td class="col-sm-2">{{bList.memberID}}</td>
+            <td class="col-sm-2">{{bList.groupCount}}</td>
+            <td class="col-sm-2">{{bList.creationDate | date: 'shortDate'}}</td>
+            <td class="col-sm-2">{{bList.isPublic}}</td>
+            <td class="col-sm-2">
+              <button class="btn btn-sm btn-block btn-warning">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- <card-search
       placeholder="Add a card"
       list="banList.allCards"
       callback="banList.addCard"
@@ -10,4 +77,4 @@
 
 <ul class="container">
   <li ng-repeat="bannedCard in banList.bannedCards">{{bannedCard}}</li>
-</ul>
+</ul> -->

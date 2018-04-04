@@ -26,7 +26,7 @@ commanderDash.config(function($routeProvider){
     //   templateUrl: '',
     //   controller: ''
     // })
-    // .when('/profiles', {
+    // .when('/profile', {
     //   templateUrl: '',
     //   controller: ''
     // });
@@ -39,6 +39,8 @@ commanderDash.service('DataService', ['$http', '$timeout', function($http, $time
   $svc = this;
   $svc.allCards = undefined;
 
+  var maxAttempts = 5;
+
   console.log("Start http");
   $http.get('https://raw.githubusercontent.com/HenryHall/.Commander/master/AllCards')
   .then( (cardList) => {
@@ -47,13 +49,20 @@ commanderDash.service('DataService', ['$http', '$timeout', function($http, $time
   });//Should Error handle here, fix
 
 
-  $svc.getCardList = function(){
+  $svc.getCardList = function(attempts){
+    attempts = attempts ? attempts : 1;
+
+    if(attempts > maxAttempts){
+      console.log("Could not get card data.  Max attempts reached(" + attempts + ").");
+      return false;
+    }
+
     if($svc.allCards){
       return $svc.allCards;
     } else {
       // setTimeout(function () {
       //   console.log("Trying again...");
-        return $svc.getCardList();
+        return $svc.getCardList(attempts+1);
       // }, 1000);
     }
   };

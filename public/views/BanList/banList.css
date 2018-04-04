@@ -1,0 +1,12 @@
+
+.banListView .main {
+  margin-top: 25px;
+}
+
+.banListView .selectedView {
+  margin-top: 25px;
+}
+
+#listViewControls .viewControl:not(:first-of-type) {
+  margin-left: 20px;
+}

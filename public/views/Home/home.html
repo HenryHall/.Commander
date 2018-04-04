@@ -1,18 +1,32 @@
 
 <div class="homeView">
 
+  <div class="background">
+
+  </div>
+
   <!-- <div class="jumbotron">
     <h1>Welcome to Commander Dash!</h1>
     <p>This is come placeholder text. <small>Please flesh me out.</small></p>
   </div> -->
+  <div class="container main mainContent">
+    <div class="row">
+      <div class="container">
+        <card-search
+              placeholder="Find a Magic card"
+              list="home.list"
+              callback="home.getCard">
+        </card-search>
+      </div>
+    </div>
 
-  <card-search
-        placeholder="Find a Magic card"
-        list="home.list"
-        callback="home.getCard"
-        >
-  </card-search>
-
-  <img class="cardView" ng-src="{{home.imgSrc}}" />
+    <div class="row pt-5">
+      <div class="container d-flex h-100">
+        <div class="row w-100 justify-content-center">
+          <img class="cardView img-fluid" ng-src="{{home.imgSrc}}" />
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

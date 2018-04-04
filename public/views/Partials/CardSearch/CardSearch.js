@@ -49,6 +49,10 @@ function CardSearchController($scope, $element, $attrs){
 
 
   $ctrl.getSuggestions = function(){
+    //Show suggestionResults
+    $element.find('#searchResults')[0].style.display = 'Block';
+
+    if(!$ctrl.list){throw new Error("List is not defined yet.")}
 
     var model = $ctrl.queryIn;
     var output = [];
@@ -136,16 +140,23 @@ function CardSearchController($scope, $element, $attrs){
 
 
   $ctrl.outputAction = function(){
+    //Hide suggestions
+    $element.find('#searchResults')[0].style.display = 'None';
+
     //Make model same as active
     var model = $ctrl.suggestionList[$scope.selectedSearch];
-    if(model){     $ctrl.suggestionList = [model]; };
+    if(model){ $ctrl.suggestionList = [model]; };
 
+    //Handle display on submit
     if($ctrl.clrOnSubmit){
       $ctrl.queryIn = '';
       $ctrl.suggestionList = [];
       $scope.selectedSearch = 0;
+    } else {
+      $ctrl.queryIn = model;
     }
 
+    //Envoke callback
     if (model){ return $ctrl.callback(model); }
   }
 

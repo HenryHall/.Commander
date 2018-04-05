@@ -22,16 +22,19 @@ router.get('/', passport.authenticate('auth0', {
 router.get(
   '/callback',
   passport.authenticate('auth0', {
-    //Probably want to change this to indicate to the user that login failed **FIX**
-    // failureRedirect: '/'
     failureRedirect: '/loginFailure'
   }),
   function(req, res) {
-    // res.redirect(req.session.returnTo || '/user');
-    console.log(req.user);
-    checkNewUser(req.user.id);
+    console.log("Successful login:", req.user.id);
+    var isNewUser = checkNewUser(req.user.id);
 
-    res.redirect('/');
+    if(isNewUser){
+      req.user.isNewUser = true;
+      res.redirect('/profile', {user: req.user})
+    } else {
+      res.redirect('/', {user: req.user});
+    }
+
   }
 );
 

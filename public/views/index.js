@@ -26,10 +26,10 @@ commanderDash.config(function($routeProvider){
     //   templateUrl: '',
     //   controller: ''
     // })
-    // .when('/profile', {
-    //   templateUrl: '',
-    //   controller: ''
-    // });
+    .when('/profile', {
+      templateUrl: './views/Profile/profile.html',
+      controller: 'profileController'
+    });
 
 });
 

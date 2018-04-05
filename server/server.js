@@ -2,8 +2,6 @@
 require('dotenv').config();
 console.log("Hello from server.js");
 
-console.log(process.env.AUTH0_CLIENT_ID);
-
 var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');

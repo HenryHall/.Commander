@@ -8,44 +8,13 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var server = express();
 
-// ------------------------------------------------------------------ //
-
-const passport = require('passport');
-const Auth0Strategy = require('passport-auth0');
-
-
-const strategy = new Auth0Strategy(
-  {
-    domain: process.env.AUTH0_DOMAIN,
-    clientID: process.env.AUTH0_CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/login/callback'
-  },
-  (accessToken, refreshToken, extraParams, profile, done) => {
-    console.log("Here with:", profile);
-    return done(null, profile);
-  }
-);
-
-passport.use(strategy);
-
-// This can be used to keep a smaller payload
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-});
-
+var passport = require('../server/modules/passport.js');
 
 server.use(session({ secret: process.env.SESSION_SECRET }));
 server.use(bodyParser.urlencoded({ extended: false }));
 
 server.use(passport.initialize());
 server.use(passport.session());
-
-// ------------------------------------------------------------------ //
 
 server.use( express.static( 'public' ) );
 
@@ -61,13 +30,40 @@ server.get( '/', function( req, res ){
 });
 
 
-var loginModule = require('../server/modules/login.js');
+server.get('/login', function(req, res, next){
+  console.log(req.header('Referer'));
+  req.session.backURL = req.header('Referer') || '/';
+  console.log("backURL:", req.session.backURL);
+  next();
+}, passport.authenticate('auth0', {}), function(req, res){
+  res.redirect('/');
+});
+
+server.get('/login/callback',
+  passport.authenticate('auth0', {
+    failureRedirect: '/loginFailure'
+  }),
+  function(req, res) {
+    const checkNewUser = require('../server/modules/checkNewUser');
+    console.log("Successful login:", req.user.id);
+    checkNewUser(req.user.id, function(isNewUser){
+      console.log("isNewUser:", isNewUser);
+      if(isNewUser){
+        console.log("req.user", req.user);
+        req.user.isNewUser = true;
+        res.redirect("/#/profile");
+      } else {
+        res.redirect(req.session.backURL || '/');
+      }
+    });
+  }
+);
+
+// var loginModule = require('../server/modules/login.js');
 var logoutModule = require('../server/modules/logout.js');
+var getUserInfoModule = require('../server/modules/getUserInfo.js');
 
-server.use('/login', loginModule);
+// server.use('/login', loginModule);
 server.use('/logout', logoutModule);
+server.use('/getUserInfo', getUserInfoModule);
 server.use('/loginFailure', function(req, res){ res.sendFile( path.resolve( 'public/views/LoginFailure/loginFailure.html' ))});
-
-
-// var myRoute = require ('../server/modules/route.js');
-// server.use('/myRoute', myRoute);

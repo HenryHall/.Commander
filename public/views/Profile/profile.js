@@ -1,7 +1,13 @@
 
+angular.module('commanderDash').controller('profileController', ['$scope', 'DataService', function($scope, DataService){
 
+  console.log("Hello from profileController.");
+  var $ctrl = this;
 
-angular.module('commanderDash').controller('profileController', ['$scope', function($scope){
+  $ctrl.test = "Testing";
 
+  DataService.getUserObject().then((userObject) => {
+    $ctrl.userObject = userObject;
+  });
 
 }]);

@@ -1,9 +1,55 @@
 
 <div class="profileView">
 
-  <div class="main">
+  <div class="main container">
 
-    
+    <h1>Profile</h1>
+    <h2>Welcome, {{profile.userObject.memberName}}</h2>
+
+    <div class="container d-flex">
+
+      <div class="container col-sm-6">
+        <h3>Groups</h3>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <td>Name</td>
+              <td>Join Date</td>
+              <td>Role</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="group in profile.userObject.groups">
+              <td>{{group.groupName}}</td>
+              <td>{{group.joinDate | date: 'shortDate'}}</td>
+              <td>{{group.role}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="container col-sm-6">
+        <h3>Ban Lists</h3>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <td>Name</td>
+              <td>Creation Date</td>
+              <td>Public</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="banlist in profile.userObject.banLists">
+              <td>{{banlist.banlistName}}</td>
+              <td>{{banlist.creationDate | date: 'shortDate'}}</td>
+              <td>{{banlist.isPublic}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
 
   </div>
 

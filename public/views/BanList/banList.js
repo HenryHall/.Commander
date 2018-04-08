@@ -21,9 +21,9 @@ angular.module('commanderDash').controller('banListController', ['$scope', 'Data
   var $ctrl = this;
 
 //Init
-  setTimeout(function () {
-    $ctrl.allCards = Object.keys(DataService.getCardList());
-  }, 1000);
+  Promise.resolve(DataService.getCardList()).then((cardList) => {
+    $ctrl.allCards = Object.keys(cardList);
+  });
 
   $scope.shownBLists = myBLists;
   //Options: myBanList, searchLists, newList

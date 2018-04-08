@@ -1,3 +1,5 @@
 .env
 node_modules/
 commandPromptNotes.txt
+
+package-lock.json

@@ -1,11 +1,5 @@
 
-// var pool = require('./connection');
-
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  connectionString: require('./connection.js')
-});
+const pool = require('./connection.js');
 
 var checkUsers = function(user_id, callback){
   console.log("Checking users:", user_id);

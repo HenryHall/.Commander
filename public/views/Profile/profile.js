@@ -4,8 +4,6 @@ angular.module('commanderDash').controller('profileController', ['$scope', 'Data
   console.log("Hello from profileController.");
   var $ctrl = this;
 
-  $ctrl.test = "Testing";
-
   DataService.getUserObject().then((userObject) => {
     $ctrl.userObject = userObject;
   });

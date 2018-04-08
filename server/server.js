@@ -12,6 +12,7 @@ var passport = require('../server/modules/passport.js');
 
 server.use(session({ secret: process.env.SESSION_SECRET }));
 server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.json())
 
 server.use(passport.initialize());
 server.use(passport.session());
@@ -62,8 +63,10 @@ server.get('/login/callback',
 // var loginModule = require('../server/modules/login.js');
 var logoutModule = require('../server/modules/logout.js');
 var getUserInfoModule = require('../server/modules/getUserInfo.js');
+var deckListModule = require('../server/modules/deckList.js');
 
 // server.use('/login', loginModule);
 server.use('/logout', logoutModule);
 server.use('/getUserInfo', getUserInfoModule);
+server.use('/d', deckListModule);
 server.use('/loginFailure', function(req, res){ res.sendFile( path.resolve( 'public/views/LoginFailure/loginFailure.html' ))});

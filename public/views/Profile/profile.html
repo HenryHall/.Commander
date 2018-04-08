@@ -3,49 +3,95 @@
 
   <div class="main container">
 
-    <h1>Profile</h1>
-    <h2>Welcome, {{profile.userObject.memberName}}</h2>
+    <h1>{{profile.userObject.memberName}}'s CommanderDash</h1>
 
-    <div class="container d-flex">
+    <div class="container">
 
-      <div class="container col-sm-6">
-        <h3>Groups</h3>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <td>Name</td>
-              <td>Join Date</td>
-              <td>Role</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="group in profile.userObject.groups">
-              <td>{{group.groupName}}</td>
-              <td>{{group.joinDate | date: 'shortDate'}}</td>
-              <td>{{group.role}}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="row d-flex">
+
+        <div class="container col-sm-6">
+          <h3>
+            Groups
+            <button class="btn btn-sm btn-primary float-right">New Group</button>
+          </h3>
+          <table class="table table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>Name</th>
+                <th>Join Date</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="group in profile.userObject.groups">
+                <td>{{group.groupName}}</td>
+                <td>{{group.joinDate | date: 'shortDate'}}</td>
+                <td>{{group.role}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="container col-sm-6">
+          <h3>
+            Ban Lists
+            <button class="btn btn-sm btn-primary float-right">New Ban List</button>
+          </h3>
+          <table class="table table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>Name</th>
+                <th>Creation Date</th>
+                <th>Public</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="banlist in profile.userObject.banLists">
+                <td>{{banlist.banlistName}}</td>
+                <td>{{banlist.creationDate | date: 'shortDate'}}</td>
+                <td>{{banlist.isPublic}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      <!-- End row -->
       </div>
 
-      <div class="container col-sm-6">
-        <h3>Ban Lists</h3>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <td>Name</td>
-              <td>Creation Date</td>
-              <td>Public</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="banlist in profile.userObject.banLists">
-              <td>{{banlist.banlistName}}</td>
-              <td>{{banlist.creationDate | date: 'shortDate'}}</td>
-              <td>{{banlist.isPublic}}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="row d-flex">
+
+        <div class="container">
+          <h3>
+            Deck Lists
+            <a class="btn btn-sm btn-primary float-right" href="#/deckList/newList">New Deck List</a>
+          </h3>
+          <table class="table table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>Name</th>
+                <th>View List</th>
+                <th>Play Count</th>
+                <th>Creation Date</th>
+                <th>Public</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="deckList in profile.userObject.deckLists">
+                <td>{{deckList.deckName}}</td>
+                <td>
+                  <a class="btn btn-block btn-sm btn-primary" href="{{'#/deckList/' + deckList.deckListID}}">
+                    Go
+                  </a>
+                </td>
+                <td>{{deckList.playCount}}</td>
+                <td>{{deckList.addDate | date: 'shortDate'}}</td>
+                <td>{{deckList.isPublic}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      <!-- End row -->
       </div>
 
 

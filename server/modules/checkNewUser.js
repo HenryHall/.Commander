@@ -1,13 +1,15 @@
 
 const pool = require('./connection.js');
 
-var checkUsers = function(user_id, callback){
-  console.log("Checking users:", user_id);
+var checkUsers = function(req, res, next){
+  console.log("Checking users");
 
-  if(!user_id){
+  if(!req.user){
     //Handle no session data  **FIX**
-    return callback(false);
+    return next(false);
   }
+
+  var user_id = req.user.id;
 
   pool.query('SELECT * FROM members WHERE "auth0_ID" = $1', [user_id], (err, result) => {
     if(err){
@@ -23,7 +25,7 @@ var checkUsers = function(user_id, callback){
     } else {
       console.log("Found a match, repeat user.  No action");
     }
-    return callback(true);
+    return next(true);
   });
 }
 

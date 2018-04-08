@@ -23,15 +23,15 @@ commanderDash.config(function($routeProvider){
       controller: 'profileController',
       controllerAs: 'profile'
     })
-    .when('/deckList/:deckListID', {
-      templateUrl: './views/DeckList/deckList.html',
-      controller: 'deckListController',
-      controllerAs: 'deckList'
-    })
     .when('/deckList/newList', {
       templateUrl: './views/DeckList/newList.html',
       controller: 'newListController',
       controllerAs: 'newList'
+    })
+    .when('/deckList/:deckListID', {
+      templateUrl: './views/DeckList/deckList.html',
+      controller: 'deckListController',
+      controllerAs: 'deckList'
     });
     // .when('/league', {
     //   templateUrl: '',

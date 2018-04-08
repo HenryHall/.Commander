@@ -5,8 +5,9 @@ const router = express.Router();
 const pool = require('./connection.js');
 
 const authCheck = require('./checkAuthentication.js');
+const checkNewUser = require('../server/modules/checkNewUser');
 
-router.get('/', authCheck, function(req, res){
+router.get('/', authCheck, checkNewUser, function(req, res){
 
   console.log("Getting user object");
 

@@ -4,9 +4,11 @@ const router = express.Router();
 
 const pool = require('./connection.js');
 
-router.get('/', function(req, res){
+const authCheck = require('./checkAuthentication.js');
 
-  //Make auth check  **FIX**
+router.get('/', authCheck, function(req, res){
+
+  console.log("Getting user object");
 
   //Make db call for profile data
     //Instead of declaring new object, copy the current req.user.userObject  **FIX**

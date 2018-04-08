@@ -2,15 +2,16 @@
 var connectionString = '';
 if(process.env.DATABASE_URL !== undefined) {
  connectionString = process.env.DATABASE_URL;
- pg.defaults.ssl = true;
+ // pg.defaults.ssl = true;
 } else {
- connectionString = 'postgres://localhost:5432/commanderDash';
+ connectionString = 'postgres://localhost:5432/commanderDash?ssl=true';
 }
 
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  connectionString: connectionString
+  connectionString: connectionString,
+  ssl: true
 });
 
 pool.on('error', (err, client) => {

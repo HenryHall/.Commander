@@ -7,7 +7,8 @@ const pool = require('./connection.js');
 const authCheck = require('./checkAuthentication.js');
 const checkNewUser = require('./checkNewUser.js');
 
-router.get('/', authCheck, checkNewUser, function(req, res){
+// Should check for new user here
+router.get('/', authCheck, function(req, res){
 
   console.log("Getting user object");
 

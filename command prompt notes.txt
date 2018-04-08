@@ -1,8 +1,0 @@
-
-Navigating cmd-
-
-cd (document) = get into doccument
-
-cd .. = go up a folder
-
-git

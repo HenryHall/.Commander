@@ -5,7 +5,7 @@ const router = express.Router();
 const pool = require('./connection.js');
 
 const authCheck = require('./checkAuthentication.js');
-const checkNewUser = require('../server/modules/checkNewUser');
+const checkNewUser = require('./checkNewUser.js');
 
 router.get('/', authCheck, checkNewUser, function(req, res){
 

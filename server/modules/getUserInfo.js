@@ -2,11 +2,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  connectionString: require('./connection.js')
-});
+const pool = require('./connection.js');
 
 router.get('/', function(req, res){
 
@@ -19,6 +15,7 @@ router.get('/', function(req, res){
       memberName: undefined,
       joinDate: undefined,
       groups: [],
+      deckLists: [],
       banLists: []
     };
     const userObjectQueries = {
@@ -28,6 +25,10 @@ router.get('/', function(req, res){
         },
       groupDetailsQuery: {
         text: 'SELECT "g"."groupName", "mg"."joinDate", "mg"."role" FROM "groups" "g", "memberGroups" "mg", "members" "m" WHERE "g"."groupID" = "mg"."groupID" AND "mg"."memberID" = "m"."memberID" AND "m"."memberID" = $1',
+        values: []
+        },
+      deckListQuery: {
+        text: 'SELECT * FROM "memberDeckLists" WHERE "memberID" = $1',
         values: []
         },
       banListsQuery: {
@@ -48,6 +49,9 @@ router.get('/', function(req, res){
           res.sendStatus(418);
         } else {
           var result = results.rows[0];
+          //Attach memberID to server userObject
+          req.memberID = result.memberID;
+
           userObject.memberID = result.memberID;
           userObject.memberName = result.memberName;
           userObject.joinDate = result.joinDate;
@@ -57,7 +61,7 @@ router.get('/', function(req, res){
       });
     }
 
-    //Kicks off getBanLists
+    //Kicks off getDeckLists
     function getGroupDetails(memberID){
       // Get group details
       console.log("Getting group details");
@@ -74,11 +78,38 @@ router.get('/', function(req, res){
               role: row.role
             });
           });
-          // res.send(userObject);
+          getDeckList(memberID);
+        }
+      });
+    }
+
+
+    //Kicks off getBanLists
+    function getDeckList(memberID){
+      // Get group details
+      console.log("Getting group details");
+      userObjectQueries.deckListQuery.values = [memberID];
+      pool.query(userObjectQueries.deckListQuery, (err, results) => {
+        if (err) {
+          console.log("deckListQuery failed.", err);
+          res.sendStatus(418);
+        } else {
+          results.rows.forEach((row) => {
+            userObject.deckLists.push({
+              deckListID: row.deckListID,
+              deckName: row.deckName,
+              deckListLink: row.deckListLink,
+              isPublic: row.isPublic,
+              commander: row.commander,
+              playCount: row.playCount,
+              addDate: row.addDate
+            });
+          });
           getBanLists(memberID);
         }
       });
     }
+
 
     //res.send built userObject
     function getBanLists(memberID){
@@ -103,7 +134,7 @@ router.get('/', function(req, res){
       });//End banListsQuery
     }
 
-    
+
 });//End router.get
 
 module.exports = router;

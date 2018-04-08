@@ -85,7 +85,8 @@ function CardSearchController($scope, $element, $attrs){
   $ctrl.selectSuggestion = function(index){
     $scope.selectedSearch = index;
     $ctrl.queryIn = $ctrl.suggestionList[index];
-    $element[0].querySelector('#queryIn').focus();
+    $element[0].querySelector('.queryIn').focus();
+    $ctrl.outputAction();
   }
 
 

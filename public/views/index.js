@@ -22,6 +22,16 @@ commanderDash.config(function($routeProvider){
       templateUrl: './views/Profile/profile.html',
       controller: 'profileController',
       controllerAs: 'profile'
+    })
+    .when('/deckList/:deckListID', {
+      templateUrl: './views/DeckList/deckList.html',
+      controller: 'deckListController',
+      controllerAs: 'deckList'
+    })
+    .when('/deckList/newList', {
+      templateUrl: './views/DeckList/newList.html',
+      controller: 'newListController',
+      controllerAs: 'newList'
     });
     // .when('/league', {
     //   templateUrl: '',
@@ -31,9 +41,10 @@ commanderDash.config(function($routeProvider){
     //   templateUrl: '',
     //   controller: ''
     // });
-
 });
 
+
+// #/DeckList/newList
 
 commanderDash.service('DataService', ['$http', '$timeout', '$q', function($http, $timeout, $q){
 
@@ -41,51 +52,23 @@ commanderDash.service('DataService', ['$http', '$timeout', '$q', function($http,
   $svc.allCards = undefined;
   $svc.userObject = undefined;
 
-  var maxAttempts = 5;
-
-  console.log("Getting card data");
-  $http.get('https://raw.githubusercontent.com/HenryHall/.Commander/master/AllCards.json')
-  .then( (cardList) => {
-    console.log("Got http data");
-    $svc.allCards = cardList.data;
-  });//Should Error handle here, fix
-
-  $svc.getCardList = function(attempts){
-    attempts = attempts ? attempts : 1;
-
-    if(attempts > maxAttempts - 1){
-      console.log("Could not get card data.  Max attempts reached(" + attempts + ").");
-      return false;
-    }
-
+  $svc.getCardList = function(){
     if($svc.allCards){
       return $svc.allCards;
     } else {
-      // setTimeout(function () {
-      //   console.log("Trying again...");
-        return $svc.getCardList(attempts+1);
-      // }, 1000);
+      //Fix source
+      var cardListPromise = $http.get('https://raw.githubusercontent.com/HenryHall/.Commander/master/AllCards.json')
+        .then( (cardList) => {
+          console.log("Got http data");
+          $svc.allCards = cardList.data;
+          return cardList.data;
+        },
+        function(err){
+          console.log("Could not retrieve cardList");
+        });
+      return cardListPromise;
     }
-  };
-
-
-  //Callback fix
-  // $svc.getCardList = function(callback){
-  //   if(!$svc.cardList){
-  //     console.log("Getting cards via http");
-  //     $http.get('https://raw.githubusercontent.com/HenryHall/.Commander/master/AllCards.json')
-  //     .success( (cardList) => {
-  //       $svc.allCards = cardList;
-  //       return callback($svc.allCards);
-  //     })
-  //     .error( (err) => {
-  //       throw new Error(err);
-  //     });
-  //   } else {
-  //     return callback($svc.allCards);
-  //   }
-  // }
-
+  }
 
   $svc.getUserObject = function(){
     var userObjectPromise = $http.get('/getUserInfo')
@@ -98,6 +81,9 @@ commanderDash.service('DataService', ['$http', '$timeout', '$q', function($http,
     });
     return userObjectPromise;
   }
+
+  //Run on load
+  $svc.getCardList();
 
 
 }]);

@@ -6,28 +6,40 @@ const authCheck = require('./checkAuthentication.js');
 
 const pool = require('./connection.js');
 
-router.get('/d/:deckListID', function(req, res){
+router.get('/:deckListID', function(req, res){
 
   console.log("Deck list ID:", req.params.deckListID);
 
   pool.connect((err, client, done) => {
     if (err) throw err;
-    client.query('SELECT * FROM "memberDeckLists" WHERE deckListID = $1', [req.params.deckListID], (selectError, selectResult) => {
-      done();
+    client.query('SELECT * FROM "memberDeckLists" WHERE "deckListID" = $1', [req.params.deckListID], (selectError, selectResult) => {
       if (selectError) {
         //Please handle better
         console.log(selectError.stack);
-        res.sendStatus(400);
+        return res.sendStatus(400);
       } else {
         console.log(selectResult.rows[0]);
         //Return info if deck list is public or owned by requester
-        if(selectResult.rows[0].isPublic  || req.memberID == selectResult.rows[0].memberID){
+        if(!selectResult.rows[0].isPublic && req.memberID != selectResult.rows[0].memberID){
+          //Not public or owned by requester
+          return res.sendStatus(204);
+        } else {
           //Success
-          res.send({deckInfo: selectResult.rows[0]});
-        }
+          var deckInfo = selectResult.rows[0];
 
-        //Not public or owned by requester
-        res.sendStatus(204);
+          //Get memberName
+          client.query('SELECT "memberName" FROM "members" WHERE "memberID" = $1', [selectResult.rows[0].memberID], (select2Error, select2Result) => {
+            done();
+            if(select2Error){
+              console.log(select2Error.stack);
+              return res.sendStatus(400);
+            } else {
+              console.log("memberName:", select2Result.rows[0].memberName);
+              deckInfo.memberName = select2Result.rows[0].memberName;
+              return res.send(deckInfo);
+            }
+          });
+        }
       }
     });
   });

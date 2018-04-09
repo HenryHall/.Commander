@@ -23,12 +23,12 @@ commanderDash.config(function($routeProvider){
       controller: 'profileController',
       controllerAs: 'profile'
     })
-    .when('/deckList/newList', {
+    .when('/d/newList', {
       templateUrl: './views/DeckList/newList.html',
       controller: 'newListController',
       controllerAs: 'newList'
     })
-    .when('/deckList/:deckListID', {
+    .when('/d/:deckListID', {
       templateUrl: './views/DeckList/deckList.html',
       controller: 'deckListController',
       controllerAs: 'deckList'

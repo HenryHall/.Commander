@@ -2,8 +2,10 @@
 <div class="profileView">
 
   <div class="main container">
-
-    <h1>{{profile.userObject.memberName}}'s CommanderDash</h1>
+    <div class="row">
+      <div class="col-md-12">
+        <h1>{{profile.userObject.memberName}}'s CommanderDash</h1>
+    </div>
 
     <div class="container">
 
@@ -63,7 +65,7 @@
         <div class="container">
           <h3>
             Deck Lists
-            <a class="btn btn-sm btn-primary float-right" href="#/deckList/newList">New Deck List</a>
+            <a class="btn btn-sm btn-primary float-right" href="#/d/newList">New Deck List</a>
           </h3>
           <table class="table table-hover">
             <thead class="thead-light">
@@ -79,7 +81,7 @@
               <tr ng-repeat="deckList in profile.userObject.deckLists">
                 <td>{{deckList.deckName}}</td>
                 <td>
-                  <a class="btn btn-block btn-sm btn-primary" href="{{'#/deckList/' + deckList.deckListID}}">
+                  <a class="btn btn-block btn-sm btn-primary" href="{{'#/d/' + deckList.deckListID}}">
                     Go
                   </a>
                 </td>

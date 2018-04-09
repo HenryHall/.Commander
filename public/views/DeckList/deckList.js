@@ -5,16 +5,14 @@ angular.module('commanderDash').controller('deckListController', ['$scope', '$ht
 
   var $ctrl = this;
 
-  console.log("Route Params:", $routeParams);
-
   $http.get('/deckList/' + $routeParams.deckListID)
-  .success( (returnData) => {
-    console.log(returnData.deckInfo);
-    $ctrl.returnData.deckInfo;
+  .success( (deckInfo) => {
+    console.log(deckInfo);
+    $ctrl.deck = deckInfo;
   })
   .error( (err) => {
     console.log("Deck list data retrevial failed", err);
-    //Display some feedback about error
+    //Display some visual feedback about error
   });
 
 }]);

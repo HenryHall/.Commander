@@ -68,5 +68,5 @@ var deckListModule = require('../server/modules/deckList.js');
 // server.use('/login', loginModule);
 server.use('/logout', logoutModule);
 server.use('/getUserInfo', getUserInfoModule);
-server.use('/d', deckListModule);
+server.use('/deckList', deckListModule);
 server.use('/loginFailure', function(req, res){ res.sendFile( path.resolve( 'public/views/LoginFailure/loginFailure.html' ))});

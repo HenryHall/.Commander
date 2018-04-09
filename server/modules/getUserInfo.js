@@ -13,7 +13,6 @@ router.get('/', authCheck, function(req, res){
   console.log("Getting user object");
 
   //Make db call for profile data
-    //Instead of declaring new object, copy the current req.user.userObject  **FIX**
     var userObject = {
       memberID: undefined,
       memberName: undefined,

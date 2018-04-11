@@ -27,7 +27,7 @@ router.get('/', authCheck, function(req, res){
         values: [req.user.id]
         },
       groupDetailsQuery: {
-        text: 'SELECT "g"."groupName", "mg"."joinDate", "mg"."role" FROM "groups" "g", "memberGroups" "mg", "members" "m" WHERE "g"."groupID" = "mg"."groupID" AND "mg"."memberID" = "m"."memberID" AND "m"."memberID" = $1',
+        text: 'SELECT "g"."groupID", "g"."groupName", "mg"."joinDate", "mg"."role" FROM "groups" "g", "memberGroups" "mg", "members" "m" WHERE "g"."groupID" = "mg"."groupID" AND "mg"."memberID" = "m"."memberID" AND "m"."memberID" = $1',
         values: []
         },
       deckListQuery: {
@@ -52,6 +52,7 @@ router.get('/', authCheck, function(req, res){
           res.sendStatus(418);
         } else {
           var result = results.rows[0];
+          console.log("result:", result);
           //Attach memberID to server userObject
           req.memberID = result.memberID;
 
@@ -76,6 +77,7 @@ router.get('/', authCheck, function(req, res){
         } else {
           results.rows.forEach((row) => {
             userObject.groups.push({
+              groupID: row.groupID,
               groupName: row.groupName,
               joinDate: row.joinDate,
               role: row.role

@@ -32,6 +32,16 @@ commanderDash.config(function($routeProvider){
       templateUrl: './views/DeckList/deckList.html',
       controller: 'deckListController',
       controllerAs: 'deckList'
+    })
+    .when('/g/newGroup', {
+      templateUrl: './views/Group/newGroup.html',
+      controller: 'groupController',
+      controllerAs: 'group'
+    })
+    .when('/g/:groupID', {
+      templateUrl: './views/Group/group.html',
+      controller: 'groupController',
+      controllerAs: 'group'
     });
     // .when('/league', {
     //   templateUrl: '',

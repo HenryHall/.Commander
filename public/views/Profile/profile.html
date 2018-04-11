@@ -14,7 +14,7 @@
         <div class="container col-sm-6">
           <h3>
             Groups
-            <button class="btn btn-sm btn-primary float-right">New Group</button>
+            <a class="btn btn-sm btn-primary float-right" href="#/g/newGroup">New Group</a>
           </h3>
           <table class="table table-hover">
             <thead class="thead-light">
@@ -26,7 +26,11 @@
             </thead>
             <tbody>
               <tr ng-repeat="group in profile.userObject.groups">
-                <td>{{group.groupName}}</td>
+                <td>
+                  <a href="{{'#/g/' + group.groupID}}">
+                    {{group.groupName}}
+                  </a>
+                </td>
                 <td>{{group.joinDate | date: 'shortDate'}}</td>
                 <td>{{group.role}}</td>
               </tr>
@@ -71,7 +75,6 @@
             <thead class="thead-light">
               <tr>
                 <th>Name</th>
-                <th>View List</th>
                 <th>Play Count</th>
                 <th>Creation Date</th>
                 <th>Public</th>
@@ -79,10 +82,9 @@
             </thead>
             <tbody>
               <tr ng-repeat="deckList in profile.userObject.deckLists">
-                <td>{{deckList.deckName}}</td>
                 <td>
-                  <a class="btn btn-block btn-sm btn-primary" href="{{'#/d/' + deckList.deckListID}}">
-                    Go
+                  <a href="{{'#/d/' + deckList.deckListID}}">
+                    {{deckList.deckName}}
                   </a>
                 </td>
                 <td>{{deckList.playCount}}</td>

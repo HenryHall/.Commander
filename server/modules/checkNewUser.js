@@ -23,7 +23,8 @@ var checkUsers = function(req, res, next){
         }
       });
     } else {
-      console.log("Found a match, repeat user.  No action");
+      req.user.memberID = result.rows[0].memberID;
+      console.log("Found a match, repeat user. memberID:", req.user.memberID);
     }
     return next(true);
   });

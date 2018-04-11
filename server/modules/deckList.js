@@ -20,7 +20,7 @@ router.get('/:deckListID', function(req, res){
       } else {
         console.log(selectResult.rows[0]);
         //Return info if deck list is public or owned by requester
-        if(!selectResult.rows[0].isPublic && req.memberID != selectResult.rows[0].memberID){
+        if(!selectResult.rows[0].isPublic && req.user.memberID != selectResult.rows[0].memberID){
           //Not public or owned by requester
           return res.sendStatus(204);
         } else {
@@ -62,6 +62,8 @@ router.post('/newList', authCheck, function(req, res){
       } else {
         console.log(selectResult.rows[0]);
         var memberID = selectResult.rows[0].memberID;
+
+        if(!memberID){ return res.sendStatus(400); }
 
         client.query('INSERT INTO "memberDeckLists" ("memberID", "deckName", "deckListLink", "isPublic", "commander") VALUES($1, $2, $3, $4, $5) RETURNING "deckListID"', [memberID, newList.deckNameIn, newList.deckLinkIn, newList.isPublicIn, newList.commanderIn], (insertError, insertResult) => {
           done();

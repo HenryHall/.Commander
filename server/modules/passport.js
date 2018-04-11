@@ -2,6 +2,7 @@
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 
+const pool = require('./connection.js');
 
 const strategy = new Auth0Strategy(
   {
@@ -26,7 +27,15 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user, done) {
-  done(null, user);
+  pool.query('SELECT * FROM "members" WHERE "auth0_ID" = $1', [user.id], (err, results) => {
+    if (err) {
+      throw err
+    } else {
+      results.rows[0].id = user.id;
+      // console.log("results", results);
+      done(null, results.rows[0]);
+    }
+  });
 });
 
 module.exports = passport;

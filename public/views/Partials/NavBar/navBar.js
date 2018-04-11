@@ -4,6 +4,7 @@ function NavBarController($scope, $element, DataService){
   var $ctrl = this;
 
   DataService.getUserObject().then((userObject) => {
+    console.log("Here", userObject);
     $ctrl.userObject = userObject;
   });
 

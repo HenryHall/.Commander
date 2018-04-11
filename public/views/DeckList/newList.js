@@ -7,7 +7,7 @@ angular.module('commanderDash').controller('newListController', ['$scope', '$htt
 
     console.log("Sending:", $scope.newList);
 
-    $http.post('/d/newList', $scope.newList)
+    $http.post('/deckList/newList', $scope.newList)
       .success( (returnData) => {
         console.log(returnData);
         console.log("New deck list ID created:", returnData.deckListID);

@@ -15,7 +15,7 @@
           Groups
         </a>
         <div class="dropdown-menu" aria-labelledby="groupDropdown">
-          <a ng-repeat="group in navbar.userObject.groups" class="dropdown-item" href="#/">{{group.groupName}}</a>
+          <a ng-repeat="group in navbar.userObject.groups" class="dropdown-item" href="{{'#/g/' + group.groupID}}">{{group.groupName}}</a>
         </div>
       </li>
 

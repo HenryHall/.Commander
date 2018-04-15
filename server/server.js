@@ -65,6 +65,7 @@ var logoutModule = require('../server/modules/logout.js');
 var getUserInfoModule = require('../server/modules/getUserInfo.js');
 var deckListModule = require('../server/modules/deckList.js');
 var groupModule = require('../server/modules/group.js');
+var banlistModule = require('../server/modules/banlist.js');
 
 
 // server.use('/login', loginModule);
@@ -72,4 +73,5 @@ server.use('/logout', logoutModule);
 server.use('/getUserInfo', getUserInfoModule);
 server.use('/deckList', deckListModule);
 server.use('/group', groupModule);
+server.use('/banlist', banlistModule);
 server.use('/loginFailure', function(req, res){ res.sendFile( path.resolve( 'public/views/LoginFailure/loginFailure.html' ))});

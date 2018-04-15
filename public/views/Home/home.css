@@ -12,7 +12,7 @@
   z-index: -10;
 
   /* background: white url('../../assets/homeBackground.jpg') !important; */
-  background: white url('../../assets/homeBackground2.jpg') !important;
+  background: white url('../../assets/homeBackground.jpg') !important;
 
   -moz-transform: scaleX(-1);
   -o-transform: scaleX(-1);

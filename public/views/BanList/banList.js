@@ -16,16 +16,31 @@ var allBlists = [
 
 
 
-angular.module('commanderDash').controller('banListController', ['$scope', 'DataService', function($scope, DataService){
+angular.module('commanderDash').controller('banListController', ['$scope', 'DataService', '$http', function($scope, DataService, $http){
 
   var $ctrl = this;
+
+  $ctrl.userBanlist;
 
 //Init
   Promise.resolve(DataService.getCardList()).then((cardList) => {
     $ctrl.allCards = Object.keys(cardList);
   });
 
-  $scope.shownBLists = myBLists;
+  $http.get("/banlist")
+  .success( (res) => {
+    userBanlist = res.userBanlist;
+    console.log("userBanlist", userBanlist);
+    $ctrl.userBanlist = userBanlist;
+    $scope.listView = {view: 'myBanList'};
+    $scope.shownBLists = userBanlist.banlist;
+  })
+  .error( (err) => {
+    console.log("Deck list data retrevial failed", err);
+    //Display some visual feedback about error
+  });
+
+
   //Options: myBanList, searchLists, newList
   $scope.listView = {view: 'myBanList'};
   $scope.$watchCollection('listView.view', (newValue, oldValue) => {
@@ -34,14 +49,14 @@ angular.module('commanderDash').controller('banListController', ['$scope', 'Data
     switch (newValue) {
       case 'myBanList':
         //Http call to get lists
-        $scope.shownBLists = myBLists;
+        $scope.shownBLists = $ctrl.userBanlist.banlist;
         break;
       case 'searchLists':
         //Http call to get lists
         $scope.shownBLists = allBlists;
         break;
       case 'newList':
-        // $scope.
+        //
         break;
       default:
         throw new Error("Invalid listView.  How did you get here?");

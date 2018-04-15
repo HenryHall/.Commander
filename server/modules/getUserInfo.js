@@ -35,7 +35,7 @@ router.get('/', authCheck, function(req, res){
         values: []
         },
       banListsQuery: {
-        text: 'SELECT * FROM "banlist" WHERE "memberID" = $1',
+        text: 'SELECT * FROM "banlist" JOIN "memberBanlists" ON "memberBanlists"."banlistID" = "banlist"."banlistID" WHERE "memberBanlists"."memberID" = $1',
         values: []
         }
     };

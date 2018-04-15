@@ -5,7 +5,7 @@ module.exports = function(req, res, next){
     next();
   } else {
     console.log("Not currently logged in.");
-    res.redirect('/login');
+    return false;
   }
 
 };

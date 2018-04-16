@@ -10,6 +10,8 @@ const pool = require('./connection.js');
 
 router.get("/:groupID", function(req, res){
 
+  console.log("Looking for group", req.params.groupID);
+
   var groupID = req.params.groupID;
 
   var groupObject = {
@@ -29,7 +31,13 @@ router.get("/:groupID", function(req, res){
       if (selectError) {
         //Please handle better
         console.log(selectError.stack);
-        return res.sendStatus(400);
+        done();
+        return res.send(undefined);
+      } else if (selectResult.rows.length <= 0) {
+        //Group does not exist
+        console.log("No group found.");
+        done();
+        return res.send(undefined);
       } else {
         var group = selectResult.rows[0];
         groupObject.groupName = group.groupName;
@@ -41,6 +49,7 @@ router.get("/:groupID", function(req, res){
           if (select2Error) {
             //Please handle better
             console.log(select2Error.stack);
+            done();
             return res.sendStatus(400);
           } else {
             //Is the requester a group member?
@@ -57,7 +66,10 @@ router.get("/:groupID", function(req, res){
               if(req.user && row.memberID == req.user.memberID){ isGroupMember = true; }
             });
             //Check if the group is public and if the requester is a member
-            if(!group.isPublic && isGroupMember){ return res.sendStatus(400); }
+            if(!group.isPublic && isGroupMember){
+              done();
+              return res.sendStatus(400);
+            }
 
             //Get group ban lists
             client.query('SELECT * FROM "banlist" JOIN "groupBanlists" ON "banlist"."banlistID" = "groupBanlists"."banlistID" WHERE "groupBanlists"."groupID" = $1', [groupID], (select3Error, select3Results) => {

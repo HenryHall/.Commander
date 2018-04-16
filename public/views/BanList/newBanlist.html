@@ -1,0 +1,60 @@
+
+<div class="newBanlistView">
+  <div class="main container">
+
+    <form ng-submit="nBanlist.submitNewList()">
+
+      <h1>
+        Create a new ban list
+      </h1>
+
+      <div class="form-control">
+        <div class="form-group">
+
+          <div class="row d-flex">
+            <label class="col-md-3 font-weight-bold" for="banlistName">Ban List Name</label>
+
+            <div class="form-check col-md-6">
+              <input ng-model="nBanlist.newList.isPublic" type="checkbox" class="form-check-input" id="isPublic">
+              <label class="form-check-label" for="isPublic">Would you like this ban list to be publicly available?</label>
+            </div>
+
+            <div class="col-md-3">
+              <button class="btn btn-sm btn-primary float-right" type="submit" name="newListSubmit">Submit</button>
+            </div>
+          </div>
+
+          <input ng-model="nBanlist.newList.banlistName" required type="text" class="form-control" id="banlistName" aria-describedby="deckNameHelp" placeholder="Enter the name of your ban list.">
+          <small id="banlistNameHelp" class="form-text text-muted">Display name for your new ban list.</small>
+        </div>
+
+        <div class="form-group">
+          <label class="font-weight-bold" for="ban">Add a banned card</label>
+          <card-search
+                placeholder="Find a Magic card"
+                list="nBanlist.list"
+                callback="nBanlist.addCard">
+          </card-search>
+        </div>
+
+        <div class="form-group">
+          <label class="font-weight-bold" for="commanderIn">Bans</label>
+          <table class="table table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>Card Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="ban in nBanlist.newList.bans | orderBy:'toString()'">
+                <td>{{ban}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>

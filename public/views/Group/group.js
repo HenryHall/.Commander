@@ -1,6 +1,6 @@
 
 
-angular.module('commanderDash').controller('groupController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+angular.module('commanderDash').controller('groupController', ['$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location){
 
   console.log("Hello from groupController");
 
@@ -9,7 +9,7 @@ angular.module('commanderDash').controller('groupController', ['$scope', '$http'
   $http.get('/group/' + $routeParams.groupID)
   .success( (groupObject) => {
     console.log("groupObject", groupObject);
-    $ctrl.groupObject = groupObject;
+    groupObject ? $ctrl.groupObject = groupObject : $location.path( '/missing/Group' );
   })
   .error( (err) => {
     console.log("Deck list data retrevial failed", err);

@@ -1,5 +1,5 @@
 
-angular.module('commanderDash').controller('newListController', ['$scope', '$http', '$location', function($scope, $http, $location){
+angular.module('commanderDash').controller('newListController', ['$scope', '$http', function($scope, $http){
 
   var $ctrl = this;
 
@@ -8,10 +8,10 @@ angular.module('commanderDash').controller('newListController', ['$scope', '$htt
     console.log("Sending:", $scope.newList);
 
     $http.post('/deckList/newList', $scope.newList)
-      .success( (returnData) => {
-        console.log(returnData);
-        console.log("New deck list ID created:", returnData.deckListID);
-        $location.path('/deckList/' + returnData.deckListID);
+      .success( (deckListID) => {
+        console.log(deckListID);
+        console.log("New deck list ID created:", deckListID);
+        $location.path('/d/' + deckListID);
       }).error( (err) => {
         console.log(err);
         throw new Error("New List POST failed.");

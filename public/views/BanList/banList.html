@@ -1,80 +1,96 @@
 
-<div class="banListView">
+<div class="banlistView">
+  <div class="main container">
 
-  <div class="main container form-control">
+    <div class="row">
+      <div class="container">
+        <h1>{{banlist.banlistObject.banlistName}} <small>#{{banlist.banlistObject.banlistID}}</small></h1>
 
-    <h2>Ban List</h2>
+        <div class="d-flex justify-content-start">
+          <div class="infoItem">
+            Created on: {{banlist.banlistObject.creationDate | date: 'shortDate'}}
+          </div>
 
-    <div id="listViewControls" class="d-flex justify-content-start">
-
-      <div class="viewControl">
-        <label>
-          <input type="radio" name="viewRadioSelect" ng-model="listView.view" value="myBanList">
-          My ban lists
-        </label>
+          <div class="infoItem">
+            Public: {{banlist.banlistObject.isPublic}}
+          </div>
+        </div>
       </div>
-
-      <div class="viewControl">
-        <label>
-          <input type="radio" name="viewRadioSelect" ng-model="listView.view" value="searchLists">
-          Search ban lists
-        </label>
-      </div>
-
-      <div class="viewControl">
-        <button type="button" class="btn btn-sm btn-primary" ng-click="listView.view = 'newList'">New Ban List</button>
-      </div>
-
     </div>
 
+    <div class="form-control">
+      <div class="row">
+        <div class="container col-sm-4">
 
-    <div class="selectedView">
+          <h2>Bans</h2>
 
-      <div ng-if="!shownBLists.length" class="alert alert-secondary" role="alert">
-        No lists to display.  Fix this to be done by keys
+          <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+              <tr class="d-flex">
+                <th class="col-8">Card Name</th>
+                <th class="col-4">Ban Date</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr class="d-flex" ng-repeat="ban in banlist.banlistObject.bans">
+                <td class="col-8">{{ban.cardName}}</td>
+                <td class="col-4">{{ban.banDate | date: 'shortDate'}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+        <div class="container col-sm-8">
+          <div class="row">
+            <div class="container">
+              <h2>Members</h2>
+              <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                  <tr class="d-flex">
+                    <th class="col-6">Name</th>
+                    <th class="col-3">Date Added</th>
+                    <th class="col-3">Role</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr class="d-flex" ng-repeat="member in banlist.banlistObject.members">
+                    <td class="col-6"><a href="{{'/#/m/' + member.memberID}}">{{member.memberName}}</a></td>
+                    <td class="col-3">{{member.addDate | date: 'shortDate'}}</td>
+                    <td class="col-3">{{member.role}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="container">
+
+              <h2>Groups</h2>
+              <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                  <tr class="d-flex">
+                    <th class="col-9">Group Name</th>
+                    <th class="col-3">Date Added</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="d-flex" ng-repeat="group in banlist.banlistObject.groups">
+                    <td class="col-9"><a href="{{'/#/g/' + group.groupID}}">{{group.groupName}}</a></td>
+                    <td class="col-3">{{group.addDate | date: 'shortDate'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
+        </div>
       </div>
-
-      <table class="table table-bordered table-hover" ng-if="shownBLists.length">
-        <thead class="thead-light">
-          <tr class="d-flex">
-            <th class="col-sm-2">Name</th>
-            <th class="col-sm-2">Maintained By</th>
-            <th class="col-sm-2">Group Count</th>
-            <th class="col-sm-2">Creation Date</th>
-            <th class="col-sm-2">Public</th>
-            <th class="col-sm-2">Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="d-flex" ng-repeat="bList in shownBLists" ng-click="showList(bList.banlistID)">
-            <td class="col-sm-2">{{bList.banlistName}}</td>
-            <!-- This should be member display name  **FIX** -->
-            <td class="col-sm-2">{{bList.memberID}}</td>
-            <td class="col-sm-2">{{bList.groupCount}}</td>
-            <td class="col-sm-2">{{bList.creationDate | date: 'shortDate'}}</td>
-            <td class="col-sm-2">{{bList.isPublic}}</td>
-            <td class="col-sm-2">
-              <button class="btn btn-sm btn-block btn-warning">Edit</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
     </div>
 
   </div>
-
 </div>
-
-
-
-<!-- <card-search
-      placeholder="Add a card"
-      list="banList.allCards"
-      callback="banList.addCard"
-      >
-</card-search>
-
-<ul class="container">
-  <li ng-repeat="bannedCard in banList.bannedCards">{{bannedCard}}</li>
-</ul> -->

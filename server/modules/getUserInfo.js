@@ -19,7 +19,7 @@ router.get('/', authCheck, function(req, res){
       joinDate: undefined,
       groups: [],
       deckLists: [],
-      banLists: []
+      banlists: []
     };
     const userObjectQueries = {
       memberDetailsQuery: {
@@ -34,7 +34,7 @@ router.get('/', authCheck, function(req, res){
         text: 'SELECT * FROM "memberDeckLists" WHERE "memberID" = $1',
         values: []
         },
-      banListsQuery: {
+      banlistsQuery: {
         text: 'SELECT * FROM "banlist" JOIN "memberBanlists" ON "memberBanlists"."banlistID" = "banlist"."banlistID" WHERE "memberBanlists"."memberID" = $1',
         values: []
         }
@@ -120,14 +120,14 @@ router.get('/', authCheck, function(req, res){
     function getBanLists(memberID){
       //Get ban list details
       console.log("Getting ban lists");
-      userObjectQueries.banListsQuery.values = [memberID];
-      pool.query(userObjectQueries.banListsQuery, (err, results) => {
+      userObjectQueries.banlistsQuery.values = [memberID];
+      pool.query(userObjectQueries.banlistsQuery, (err, results) => {
         if (err) {
-          console.log("banListsQuery failed.", err);
+          console.log("banlistsQuery failed.", err);
           res.sendStatus(418);
         } else {
           results.rows.forEach((row) => {
-            userObject.banLists.push({
+            userObject.banlists.push({
               banlistID: row.banlistID,
               banlistName: row.banlistName,
               creationDate: row.creationDate,
@@ -136,7 +136,7 @@ router.get('/', authCheck, function(req, res){
           });
           res.send(userObject);
         }
-      });//End banListsQuery
+      });//End banlistQuery
     }
 
 

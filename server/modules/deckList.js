@@ -47,39 +47,24 @@ router.get('/:deckListID', function(req, res){
 
 router.post('/newList', authCheck, function(req, res){
 
+  console.log("New deck list");
+
   var newList = req.body;
 
-  if(!newList){res.sendStatus(418);}
+  if(!newList){return res.sendStatus(418);}
 
-  console.log(newList);
-
-  pool.connect((err, client, done) => {
-    if (err) throw err;
-    client.query('SELECT "memberID" FROM members WHERE "auth0_ID" = $1', [req.user.id], (selectError, selectResult) => {
-      if (selectError) {
-        //Please handle better
-        console.log(selectError.stack);
-      } else {
-        console.log(selectResult.rows[0]);
-        var memberID = selectResult.rows[0].memberID;
-
-        if(!memberID){ return res.sendStatus(400); }
-
-        client.query('INSERT INTO "memberDeckLists" ("memberID", "deckName", "deckListLink", "isPublic", "commander") VALUES($1, $2, $3, $4, $5) RETURNING "deckListID"', [memberID, newList.deckNameIn, newList.deckLinkIn, newList.isPublicIn, newList.commanderIn], (insertError, insertResult) => {
-          done();
-          if (insertError) {
-            //Please handle better
-            console.log(insertError.stack);
-          } else {
-            var deckListID = insertResult.rows[0].deckListID;
-            console.log("New deck list created:", insertResult.rows[0].deckListID);
-            res.send({deckListID: deckListID});
-          }
-        }); //End INSERT statement
-
-      }
-    }); //End memberID query
-  }); //End pool connect
+  pool.query('INSERT INTO "memberDeckLists" ("memberID", "deckName", "deckListLink", "isPublic", "commander") VALUES($1, $2, $3, $4, $5) RETURNING "deckListID"', [req.user.memberID, newList.deckNameIn, newList.deckLinkIn, newList.isPublicIn, newList.commanderIn], (insertError, insertResult) => {
+    done();
+    if (insertError) {
+      //Please handle better
+      console.log(insertError.stack);
+      return res.sendStatus(400);
+    } else {
+      var deckListID = insertResult.rows[0].deckListID;
+      console.log("New deck list created:", insertResult.rows[0].deckListID);
+      return res.send(deckListID);
+    }
+  }); //End INSERT statement
 
 }); //End /newList
 

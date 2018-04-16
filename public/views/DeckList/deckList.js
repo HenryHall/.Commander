@@ -8,7 +8,9 @@ angular.module('commanderDash').controller('deckListController', ['$scope', '$ht
   $http.get('/deckList/' + $routeParams.deckListID)
   .success( (deckInfo) => {
     console.log(deckInfo);
-    $ctrl.deck = deckInfo;
+    // $ctrl.deck = deckInfo;
+    deckInfo ? $ctrl.deck = deckInfo : $location.path( '/missing/Deck' );
+
   })
   .error( (err) => {
     console.log("Deck list data retrevial failed", err);

@@ -34,7 +34,7 @@ server.get( '/', function( req, res ){
 server.get('/login', function(req, res, next){
   console.log(req.header('Referer'));
   req.session.backURL = req.header('Referer') || '/';
-  console.log("backURL:", req.session.backURL);
+  console.log("backURL:", req.originalURL);
   next();
 }, passport.authenticate('auth0', {}), function(req, res){
   res.redirect('/');

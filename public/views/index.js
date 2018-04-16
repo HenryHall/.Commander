@@ -13,17 +13,22 @@ commanderDash.config(function($routeProvider){
       controller: 'homeController',
       controllerAs: 'home'
     })
-    .when('/banList', {
-      templateUrl: './views/BanList/banList.html',
-      controller: 'banListController',
-      controllerAs: 'banList'
-    })
     .when('/profile', {
       templateUrl: './views/Profile/profile.html',
       controller: 'profileController',
       controllerAs: 'profile'
     })
-    .when('/d/newList', {
+    .when('/b/New', {
+      templateUrl: './views/BanList/newBanlist.html',
+      controller: 'newBanlistController',
+      controllerAs: 'nBanlist'
+    })
+    .when('/b/:banlistID', {
+      templateUrl: './views/BanList/banList.html',
+      controller: 'banlistController',
+      controllerAs: 'banlist'
+    })
+    .when('/d/New', {
       templateUrl: './views/DeckList/newList.html',
       controller: 'newListController',
       controllerAs: 'newList'
@@ -33,7 +38,7 @@ commanderDash.config(function($routeProvider){
       controller: 'deckListController',
       controllerAs: 'deckList'
     })
-    .when('/g/newGroup', {
+    .when('/g/New', {
       templateUrl: './views/Group/newGroup.html',
       controller: 'groupController',
       controllerAs: 'group'
@@ -42,6 +47,11 @@ commanderDash.config(function($routeProvider){
       templateUrl: './views/Group/group.html',
       controller: 'groupController',
       controllerAs: 'group'
+    })
+    .when('/missing/:pageType', {
+      templateUrl: './views/Partials/Missing/missing.html',
+      controller: 'missingController',
+      controllerAs: 'missing'
     });
     // .when('/league', {
     //   templateUrl: '',

@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 
-const authCheck = require('./checkAuthentication.js');
+const Auth = require('./checkAuthentication.js');
 
 const pool = require('./connection.js');
 
@@ -18,7 +18,13 @@ router.get('/:deckListID', function(req, res){
         console.log(selectError.stack);
         return res.sendStatus(400);
       } else {
-        console.log(selectResult.rows[0]);
+
+        //No results
+        if(selectResult.rows.length <= 0){
+          done();
+          return res.send(undefined);
+        }
+
         //Return info if deck list is public or owned by requester
         if(!selectResult.rows[0].isPublic && req.user.memberID != selectResult.rows[0].memberID){
           //Not public or owned by requester
@@ -45,7 +51,7 @@ router.get('/:deckListID', function(req, res){
   });
 });
 
-router.post('/newList', authCheck, function(req, res){
+router.post('/New', Auth.authProtect, function(req, res){
 
   console.log("New deck list");
 
@@ -54,7 +60,6 @@ router.post('/newList', authCheck, function(req, res){
   if(!newList){return res.sendStatus(418);}
 
   pool.query('INSERT INTO "memberDeckLists" ("memberID", "deckName", "deckListLink", "isPublic", "commander") VALUES($1, $2, $3, $4, $5) RETURNING "deckListID"', [req.user.memberID, newList.deckNameIn, newList.deckLinkIn, newList.isPublicIn, newList.commanderIn], (insertError, insertResult) => {
-    done();
     if (insertError) {
       //Please handle better
       console.log(insertError.stack);
@@ -62,7 +67,7 @@ router.post('/newList', authCheck, function(req, res){
     } else {
       var deckListID = insertResult.rows[0].deckListID;
       console.log("New deck list created:", insertResult.rows[0].deckListID);
-      return res.send(deckListID);
+      return res.send({deckListID: deckListID});
     }
   }); //End INSERT statement
 

@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-const authCheck = require('./checkAuthentication.js');
+const Auth = require('./checkAuthentication.js');
 
 const pool = require('./connection.js');
 

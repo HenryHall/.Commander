@@ -1,5 +1,5 @@
 
-angular.module('commanderDash').controller('deckListController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+angular.module('commanderDash').controller('deckListController', ['$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location){
 
   console.log("Hello from deckListController");
 

@@ -1,5 +1,5 @@
 
-angular.module('commanderDash').controller('newListController', ['$scope', '$http', function($scope, $http){
+angular.module('commanderDash').controller('newListController', ['$scope', '$http', '$location', function($scope, $http, $location){
 
   var $ctrl = this;
 
@@ -7,8 +7,9 @@ angular.module('commanderDash').controller('newListController', ['$scope', '$htt
 
     console.log("Sending:", $scope.newList);
 
-    $http.post('/deckList/newList', $scope.newList)
+    $http.post('/deckList/New', $scope.newList)
       .success( (deckListID) => {
+        deckListID = deckListID.deckListID;
         console.log(deckListID);
         console.log("New deck list ID created:", deckListID);
         $location.path('/d/' + deckListID);

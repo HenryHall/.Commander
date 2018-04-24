@@ -45,6 +45,7 @@ server.get('/login/callback',
     failureRedirect: '/loginFailure'
   }),
   function(req, res) {
+    console.log("Callback", req.user);
     const checkNewUser = require('../server/modules/checkNewUser');
     console.log("Successful login:", req.user.id);
     checkNewUser(req, res, function(isNewUser){

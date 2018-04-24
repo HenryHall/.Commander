@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 
-const authCheck = require('./checkAuthentication.js');
+const Auth = require('./checkAuthentication.js');
 
 const pool = require('./connection.js');
 
@@ -93,7 +93,7 @@ router.get('/:banlistID', function(req, res){
 
 
 //Post a new ban list
-router.post('/new', authCheck, function(req, res){
+router.post('/new', Auth.authProtect, function(req, res){
 
   console.log("New ban list:", req.body);
 

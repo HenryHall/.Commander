@@ -90,16 +90,35 @@ commanderDash.service('DataService', ['$http', '$timeout', '$q', function($http,
     }
   }
 
+  // $svc.getCardObject  = function(){};
+
+  $svc.getCardImgNumber = function(cardName){
+    if(!$svc.allCards){
+      $svc.getCardList().then(() => {
+        return $svc.allCards[cardName].multiverseid;
+      });
+    }
+
+    //Else
+    console.log("Getting image for", cardName);
+    console.log($svc.allCards[cardName]);
+    return $svc.allCards[cardName].multiverseid;
+  };
+
   $svc.getUserObject = function(){
-    var userObjectPromise = $http.get('/getUserInfo')
-    .then((userObject) => {
-      console.log("userObject returned:", userObject.data);
-      return userObject.data
-    },
-    function(err){
-      console.log("/getUserInfo failed", err);
-    });
-    return userObjectPromise;
+    if($svc.userObject){
+      return $svc.userObject;
+    } else {
+      var userObjectPromise = $http.get('/getUserInfo')
+      .then((userObject) => {
+        console.log("userObject returned:", userObject.data);
+        return userObject.data
+      },
+      function(err){
+        console.log("/getUserInfo failed", err);
+      });
+      return userObjectPromise;
+    }
   }
 
   //Run on load

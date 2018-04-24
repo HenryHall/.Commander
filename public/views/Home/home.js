@@ -8,16 +8,12 @@ angular.module('commanderDash').controller('homeController', ['$scope', '$interv
     $ctrl.list = Object.keys(cardList);
   });
 
-  DataService.getUserObject().then((userObject) => {
-    $ctrl.userObject = userObject;
-  });
+  $ctrl.getCard = function(cardName){
+    var multiverseid = DataService.getCardImgNumber(cardName);
+    $ctrl.imgSrc = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=" + multiverseid + "&type=card";
+  }
 
   // $ctrl.imgSrc = '../assets/defaultCardImg.jpg';
-  $ctrl.imgSrc = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=417617&type=card';
-
-  $ctrl.getCard = function(cardName){
-    // var allCards = DataService.getCardList();
-    $ctrl.imgSrc = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=" + $ctrl.allCards[cardName].multiverseid + "&type=card";
-  }
+  $ctrl.getCard('Dramatic Reversal');
 
 }]);

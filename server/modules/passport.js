@@ -10,11 +10,9 @@ const strategy = new Auth0Strategy(
     clientID: process.env.AUTH0_CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     callbackURL: process.env.AUTH0_CALLBACK_URL || '/login/callback',
-    scope: 'openid'
+    scope: 'openid access_token'
   },
   (accessToken, refreshToken, extraParams, profile, done) => {
-    //Why is this not working?  **Fix**
-    // localStorage.setItem('authenticationToken', accessToken);
     return done(null, profile);
   }
 );
@@ -32,7 +30,6 @@ passport.deserializeUser(function(user, done) {
       throw err
     } else {
       results.rows[0].id = user.id;
-      // console.log("results", results);
       done(null, results.rows[0]);
     }
   });

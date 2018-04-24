@@ -34,7 +34,9 @@
 
             <tbody>
               <tr class="d-flex" ng-repeat="ban in banlist.banlistObject.bans">
-                <td class="col-8">{{ban.cardName}}</td>
+                <td class="col-8">
+                  <card-hover cardName="{{ban.cardName}}" position="right" />
+                </td>
                 <td class="col-4">{{ban.banDate | date: 'shortDate'}}</td>
               </tr>
             </tbody>

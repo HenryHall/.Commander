@@ -1,0 +1,13 @@
+
+.cardHover{
+  color: rgb(250, 160, 66);
+}
+
+.cardHover:hover{
+  color: rgb(217, 127, 33);
+  text-decoration: none;
+}
+
+.popCard{
+
+}

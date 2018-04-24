@@ -9,14 +9,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
-        <li ng-if="navbar.userObject.groups.length == 1" class="nav-item"><a class="nav-link" href="#/">{{navbar.userObject.groups[0].groupName}}</a></li>
+        <li ng-if="navbar.userObject.groups.length == 1" class="nav-item"><a class="nav-link" href="{{'/#/g/' + navbar.userObject.groups[0].groupID}}">{{navbar.userObject.groups[0].groupName}}</a></li>
 
         <li ng-if="navbar.userObject.groups.length > 1" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="groupDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Groups
           </a>
           <div class="dropdown-menu" aria-labelledby="groupDropdown">
-            <a ng-repeat="group in navbar.userObject.groups" class="dropdown-item" href="{{'#/g/' + group.groupID}}">{{group.groupName}}</a>
+            <a ng-repeat="group in navbar.userObject.groups" class="dropdown-item" href="{{'/#/g/' + group.groupID}}">{{group.groupName}}</a>
           </div>
         </li>
 

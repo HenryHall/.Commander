@@ -96,8 +96,8 @@ commanderDash.service('DataService', ['$http', '$timeout', '$q', function($http,
 
   $svc.getCardImgNumber = function(cardName){
     if($svc.allCards){
-      console.log(cardName, $svc.allCards[cardName]);
-      return $svc.allCards[cardName].multiverseid;
+      console.log(cardName, $svc.allCards[cardName].images[0]);
+      return $svc.allCards[cardName].images[0].multiverseid;
     }
     //Else
     var cardImgNumberPromise = new Promise((resolve, reject) => {

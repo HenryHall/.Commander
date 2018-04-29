@@ -9,8 +9,12 @@ angular.module('commanderDash').controller('homeController', ['$scope', '$interv
   });
 
   $ctrl.getCard = function(cardName){
-    var multiverseid = DataService.getCardImgNumber(cardName);
-    $ctrl.imgSrc = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=" + multiverseid + "&type=card";
+    console.log("Here");
+    Promise.resolve(DataService.getCardImgNumber(cardName))
+    .then((multiverseid) => {
+      $ctrl.imgSrc = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=" + multiverseid + "&type=card";
+      console.log("Here2");
+    });
   }
 
   // $ctrl.imgSrc = '../assets/defaultCardImg.jpg';

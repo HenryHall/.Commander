@@ -90,20 +90,24 @@ commanderDash.service('DataService', ['$http', '$timeout', '$q', function($http,
     }
   }
 
+
   // $svc.getCardObject  = function(){};
 
-  $svc.getCardImgNumber = function(cardName){
-    if(!$svc.allCards){
-      $svc.getCardList().then(() => {
-        return $svc.allCards[cardName].multiverseid;
-      });
-    }
 
+  $svc.getCardImgNumber = function(cardName){
+    if($svc.allCards){
+      console.log(cardName, $svc.allCards[cardName]);
+      return $svc.allCards[cardName].multiverseid;
+    }
     //Else
-    console.log("Getting image for", cardName);
-    console.log($svc.allCards[cardName]);
-    return $svc.allCards[cardName].multiverseid;
+    var cardImgNumberPromise = new Promise((resolve, reject) => {
+      $svc.getCardList().then((data) => {
+        resolve($svc.allCards[cardName].multiverseid);
+      });
+    });
+    return cardImgNumberPromise;
   };
+
 
   $svc.getUserObject = function(){
     if($svc.userObject){

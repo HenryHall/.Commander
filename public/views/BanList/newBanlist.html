@@ -47,7 +47,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="ban in nBanlist.newList.bans | orderBy:'toString()'">
-                <td>{{ban}}</td>
+                <td><card-hover cardName="{{ban}}" position="right" /></td>
               </tr>
             </tbody>
           </table>

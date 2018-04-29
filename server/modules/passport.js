@@ -10,7 +10,7 @@ const strategy = new Auth0Strategy(
     clientID: process.env.AUTH0_CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     callbackURL: process.env.AUTH0_CALLBACK_URL || '/login/callback',
-    scope: 'openid access_token'
+    scope: ['openid', 'access_token']
   },
   (accessToken, refreshToken, extraParams, profile, done) => {
     return done(null, profile);

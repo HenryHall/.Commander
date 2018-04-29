@@ -77,7 +77,7 @@ commanderDash.service('DataService', ['$http', '$timeout', '$q', function($http,
       return $svc.allCards;
     } else {
       //Fix source
-      var cardListPromise = $http.get('https://raw.githubusercontent.com/HenryHall/.Commander/master/AllCards.json')
+      var cardListPromise = $http.get('https://raw.githubusercontent.com/HenryHall/.Commander/CardConsume/AllCards.json')
         .then( (cardList) => {
           console.log("Got http data");
           $svc.allCards = cardList.data;

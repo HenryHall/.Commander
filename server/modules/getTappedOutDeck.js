@@ -18,7 +18,7 @@ module.exports = function(decklistURL){
         reject();
       }
 
-      console.log('statusCode:', response && response.statusCode);
+      console.log('statusCode:', response);
 
       var title, commander0, commander1;
       var decklist = [];

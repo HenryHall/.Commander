@@ -2,6 +2,7 @@ Reads MTGJSON data and formats it into a slimmer format for Commander Dash.
 
 Output Structure:
 
+```
 {
   "Card Name": {
     "images": [
@@ -11,3 +12,4 @@ Output Structure:
   "Card Name 2": {...},
   ...
 }
+```

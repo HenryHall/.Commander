@@ -4,6 +4,8 @@ const router = express.Router();
 
 const Auth = require('./checkAuthentication.js');
 
+const getTappedOutDeck = require('./getTappedOutDeck.js');
+
 const pool = require('./connection.js');
 
 router.get('/:deckListID', function(req, res){
@@ -32,6 +34,7 @@ router.get('/:deckListID', function(req, res){
         } else {
           //Success
           var deckInfo = selectResult.rows[0];
+          var deckListLink = selectResult.rows[0].deckListLink;
 
           //Get memberName
           client.query('SELECT "memberName" FROM "members" WHERE "memberID" = $1', [selectResult.rows[0].memberID], (select2Error, select2Result) => {
@@ -42,7 +45,13 @@ router.get('/:deckListID', function(req, res){
             } else {
               console.log("memberName:", select2Result.rows[0].memberName);
               deckInfo.memberName = select2Result.rows[0].memberName;
-              return res.send(deckInfo);
+
+              //Grab deck info from TappedOut
+              getTappedOutDeck(deckListLink)
+              .then((decklist) => {
+                deckInfo.decklist = decklist;
+                return res.send(deckInfo);
+              });
             }
           });
         }

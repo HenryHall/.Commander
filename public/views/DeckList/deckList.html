@@ -28,6 +28,23 @@
       </div>
     </div>
 
+    <h2>Deck List</h2>
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>Quantity</th>
+          <th>Card Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="entry in deckList.deck.decklist">
+          <td>{{entry.quantity}}</td>
+          <td><card-hover cardName="{{entry.cardName}}" position="right" /></td>
+        </tr>
+      </tbody>
+    </table>
+
+
     <h2>Match History</h2>
     <table class="table table-hover">
       <thead class="thead-light">

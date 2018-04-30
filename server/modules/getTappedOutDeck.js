@@ -1,4 +1,6 @@
 
+//https://scotch.io/tutorials/scraping-the-web-with-node-js
+
 var request = require('request');
 var cheerio = require('cheerio');
 
@@ -16,6 +18,8 @@ module.exports = function(decklistURL){
         reject();
       }
 
+      console.log('statusCode:', response && response.statusCode);
+
       var title, commander0, commander1;
       var decklist = [];
 
@@ -28,7 +32,7 @@ module.exports = function(decklistURL){
 
           qty = $(this).attr('data-qty');
           cardName = $(this).attr('data-name');
-          // console.log(qty + "x ", cardName);
+          console.log(qty + "x ", cardName);
 
           decklist.push({quantity: qty, cardName: cardName});
 

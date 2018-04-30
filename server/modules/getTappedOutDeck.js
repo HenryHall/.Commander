@@ -38,6 +38,7 @@ module.exports = function(decklistURL){
         reject();
       }
 
+      console.log("Found deck size:", decklist.length);
       resolve(decklist);
 
     });

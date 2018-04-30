@@ -50,6 +50,7 @@ router.get('/:deckListID', function(req, res){
               getTappedOutDeck(deckListLink)
               .then((decklist) => {
                 deckInfo.decklist = decklist;
+                console.log("Done. Deck size:", decklist.length);
                 return res.send(deckInfo);
               });
             }

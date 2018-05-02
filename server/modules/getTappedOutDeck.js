@@ -10,7 +10,14 @@ module.exports = function(decklistURL){
 
   return new Promise((resolve, reject) => {
 
-    request(decklistURL, function(error, response, html){
+    var options = {
+      url: decklistURL,
+      headers: {
+        'User-Agent': 'MY IPHINE 7s'
+      }
+    };
+
+    request(options, function(error, response, html){
 
       //Handle better **FIX**
       if(error){
@@ -18,15 +25,21 @@ module.exports = function(decklistURL){
         reject();
       }
 
+      if(response.statusCode !== 200) {
+          reject('Invalid status code: '+response.statusCode);
+      }
+
       console.log('statusCode:', response);
 
       var title, commander0, commander1;
       var decklist = [];
 
-      var $ = cheerio.load(html);
-
       try {
-        $('.board-container .member .qty').each(function(index){
+        let $ = cheerio.load(html);
+
+        let cardElements = $('.board-container .member .qty')
+
+        cardElements.each(function(index){
 
           var qty, cardName;
 
@@ -39,6 +52,7 @@ module.exports = function(decklistURL){
         });
       } catch (e) {
         //Handle better **FIX**
+        console.log(e);
         reject();
       }
 

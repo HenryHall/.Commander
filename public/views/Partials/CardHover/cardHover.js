@@ -10,7 +10,7 @@ function CardHoverController($scope, $element, DataService){
   //Enable popover
   $ctrl.$onChanges = function(changesObj){
     if(changesObj.cardname.isFirstChange()){return;}
-    
+
     var popoverElem = $element[0].querySelector('.cardHover');
     var multiverseid = DataService.getCardImgNumber($ctrl.cardname);
     var url = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + multiverseid + '&type=card';
